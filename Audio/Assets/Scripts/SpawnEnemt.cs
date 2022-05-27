@@ -5,19 +5,18 @@ using UnityEngine;
 public class SpawnEnemt : MonoBehaviour
 {
     public GameObject prefabEnemy;
+    public Transform position;
+    public int MoveEnemy;
     void Start()
-    {
-        
-    }
-
-    void Update()
     {
         StartCoroutine(SpawnEnemy());
     }
     private IEnumerator SpawnEnemy()
     {
-        yield return new WaitForSeconds(5);
-        GameObject enemy = Instantiate(prefabEnemy, );
-        yield return null;
+        yield return new WaitForSeconds(2);
+        position.position = new Vector3(Random.Range(-22, 23), position.position.y, position.position.z);
+        GameObject enemy = Instantiate(prefabEnemy, position.position, Quaternion.identity);
+        enemy.GetComponent<Rigidbody>().AddForce(Vector3.back * MoveEnemy, ForceMode.Impulse);
+        StartCoroutine(SpawnEnemy());
     }
 }

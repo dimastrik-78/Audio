@@ -5,12 +5,7 @@ using UnityEngine;
 public class Audio : MonoBehaviour
 {
     [SerializeField] private AudioSource _audioSource;
-    //public Weapon position;
-    private Transform position;
-    private void Start()
-    {
-        position = GetComponent<Transform>();
-    }
+    public Weapon position;
     void Update()
     {
         _audioSource.panStereo = position.transform.position.x / 30;

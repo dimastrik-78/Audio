@@ -5,28 +5,31 @@ using UnityEngine;
 public class Weapon : MonoBehaviour
 {
     [SerializeField] private AudioSource _audioSource;
+    public UI Player;
     public float MoveSpeed;
     public GameObject BulletPrefab;
     public Transform BulletPoint;
     public Rigidbody RBBullet;
     public float BulletSpeed;
-    private float Speed;
-    private Rigidbody rb;
-    private float firePointX;
+
+    public int _heal = 3;
+
+    private float _speed;
+    private Rigidbody _rb;
     private void Start()
     {
-        rb = GetComponent<Rigidbody>();
+        _rb = GetComponent<Rigidbody>();
     }
     void Update()
     {
-        Speed = Input.GetAxis("Horizontal");
-        if (transform.position.x > 30)
-            transform.position = new Vector3(24, -10, 15);
-        if (transform.position.x < -30)
-            transform.position = new Vector3(-24, -10, 15);
-        transform.position += MoveSpeed * transform.right * Speed * Time.deltaTime;
+        _speed = Input.GetAxis("Horizontal");
+        if (transform.position.x > 22)
+            transform.position = new Vector3(22, transform.position.y, transform.position.z);
+        if (transform.position.x < -22)
+            transform.position = new Vector3(-22, transform.position.y, transform.position.z);
+        transform.position += MoveSpeed * transform.right * _speed * Time.deltaTime;
         _audioSource.panStereo = transform.position.x / 30;
-        if (Input.GetKeyUp(KeyCode.Mouse0))
+        if (Input.GetKeyUp(KeyCode.Mouse0) && Player.CanShoot == true)
         {
             Shoot();
         }
